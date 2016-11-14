@@ -8,6 +8,7 @@
 <p>
   <strong>Body:</strong>
   <%= @post.body %>
+  <%= render @post.comments %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

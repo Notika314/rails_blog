@@ -1,0 +1,7 @@
+<%= comment.body %>
+<%= render comment.replies if comment.replies.any? %>
+<%= form_for [comment.project, comment.new] do |f| %>
+   <%= f.hidden_field :parent_id, comment.parent.id %>
+   <%= f.text_field :body %>
+   <%= f.submit %>
+<% end %>
