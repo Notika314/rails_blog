@@ -3,13 +3,27 @@
 <p>
   <strong>Title:</strong>
   <%= @post.title %>
-</p>
+  </p>
 
 <p>
   <strong>Body:</strong>
   <%= @post.body %>
-  <%= render @post.comments %>
+  <% if @post.comments.any? %>
+  	<p>Comments: </p>
+	  <% @post.comments.each do |comment| %>
+		  <p><%= render partial: 'comment', locals: {comment: comment } %></p>
+	  <% end %>
+  
+  <% end %>
+  <%= form_for @comment  do |f| %>
+   <%= f.hidden_field :post_id, :value => @post.id %>
+   <%= f.hidden_field :user_id, :value => current_user.id %>
+   <%= f.text_field :body %>
+   <%= f.submit %>
+<% end %>
 </p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<% if current_user.id == @post.user_id %>
+	<%= link_to 'Edit', edit_post_path(@post) %> |
+<% end %>
 <%= link_to 'Back', posts_path %>

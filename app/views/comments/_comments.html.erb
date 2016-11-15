@@ -1,0 +1,9 @@
+<% comments.each do |comment| %>
+<p><%= comment.body %>
+</p>
+<p><%= comment.user %></p>
+<%= form_for [comment.post, comment.new] do |f| %>
+   <%= f.hidden_field :parent_id, comment.parent_id %>
+   <%= f.text_field :body %>
+   <%= f.submit %>
+<% end %>
